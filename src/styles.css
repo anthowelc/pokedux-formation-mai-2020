@@ -1,0 +1,57 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+}
+.list-container {
+  margin: 0 8px;
+}
+.screen-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.screen-name {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  text-transform: capitalize;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pokemon-item {
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.pokemon-item img {
+  width: 28px;
+}
+.pokemon-item img[alt='Caught'] {
+  width: 24px;
+}
+
+.select,
+.start,
+.b,
+.a {
+  user-select: none;
+}
+.button-select,
+.button-start,
+.b,
+.a {
+  cursor: pointer;
+}
+
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import './styles.css'
+import { connect } from 'react-redux'
 
-function App() {
+import fetchPokemons from './store/fetchPokemons'
+import { showPokemonAction, catchPokemonAction, CLICK } from './store/action'
+
+import GameBoy from './components/GameBoy'
+import PokeList from './components/PokeList'
+import Loader from './components/Loader'
+
+const App = ({
+  pokemons,
+  fetchPokemons,
+  pending,
+  showPokemon,
+  catchPokemon,
+  click
+}) => {
+  useEffect(() => {
+    fetchPokemons()
+  }, [fetchPokemons])
+
+  if (pending) {
+    return <Loader />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <GameBoy
+        showPokemon={() => showPokemon(pokemons)}
+        catchPokemon={catchPokemon}
+        click={click}
+      />
+      <PokeList />
     </div>
-  );
+  )
 }
 
-export default App;
+const mapStateToProps = ({ pending, pokemons }) => {
+  return {
+    pending,
+    pokemons
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchPokemons: () => dispatch(fetchPokemons()),
+    showPokemon: pokemons => dispatch(showPokemonAction(pokemons)),
+    catchPokemon: () => dispatch(catchPokemonAction()),
+    click: () => dispatch({ type: CLICK })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
